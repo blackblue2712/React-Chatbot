@@ -5,7 +5,7 @@ const configDialogFlow = require("../config/key");
 const projectID = configDialogFlow.googleProjectID;
 const credentials = {
     client_email: configDialogFlow.googleClientEmail,
-    private_key: configDialogFlow.googlePrivateKey
+    private_key: configDialogFlow.googlePrivateKey.replace(/\\n/g, '\n')
 }
 
 console.log(credentials)
