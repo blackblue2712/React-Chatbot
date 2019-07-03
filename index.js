@@ -5,9 +5,9 @@ const app = express();
 const mongoose = require("mongoose");
 const config = require("./config/key");
 
-console.log(config.MONGO_URI);
+console.log(config.mongoURI);
 
-mongoose.connect(config.MONGO_URI, {useNewUrlParser: true});
+mongoose.connect(config.mongoURI, {useNewUrlParser: true});
 
 // Import routes
 const dialogFlowRoutes = require("./routes/dialogFlowRoutes");
