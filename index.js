@@ -34,8 +34,8 @@ if(process.env.NODE_ENV === "production") {
     // index.html for all page routes
     const path = require("path");
     app.get('*', (req, res) => {
-        console.log(path.resolve(__dirname, 'client-chatbot', 'build', 'index.html'))
-        res.sendFile(path.resolve(__dirname, 'client-chatbot', 'build', 'index.html'))
+        console.log(path.resolve(__dirname, 'clientbot', 'build', 'index.html'))
+        res.sendFile(path.resolve(__dirname, 'clientbot', 'build', 'index.html'))
     })
 }
 
