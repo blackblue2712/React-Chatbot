@@ -1,6 +1,7 @@
 const dialogflow = require("dialogflow");
 const structjson = require("./structjson");
 const configDialogFlow = require("../config/key");
+const Registration = require("../models/Registration");
 
 const projectID = configDialogFlow.googleProjectID;
 const credentials = {
@@ -8,13 +9,11 @@ const credentials = {
     private_key: configDialogFlow.googlePrivateKey.replace(/\\n/g, '\n')
 }
 
-console.log(credentials)
-
 const sessionClient = new dialogflow.SessionsClient( {projectID, credentials} );
-const sessionPath = sessionClient.sessionPath(configDialogFlow.googleProjectID, configDialogFlow.dialogFlowSessionID);
 
 module.exports = {
-    textQuery: async (text, parameters = {}) => {
+    textQuery: async (text, userId, parameters = {}) => {
+        const sessionPath = sessionClient.sessionPath(configDialogFlow.googleProjectID, configDialogFlow.dialogFlowSessionID + userId);
         const self = module.exports;
         const request = {
             session: sessionPath,
@@ -37,7 +36,8 @@ module.exports = {
         return responses;
     },
 
-    eventQuery: async function(event,  parameters = {}) {
+    eventQuery: async function(event, userId, parameters = {}) {
+        const sessionPath = sessionClient.sessionPath(configDialogFlow.googleProjectID, configDialogFlow.dialogFlowSessionID + userId);
         let self = module.exports;
         const request = {
             session: sessionPath,
@@ -58,6 +58,32 @@ module.exports = {
 
 
     handleAction: responses => {
+        const self = module.exports;
+        let queryResult = responses[0].queryResult;
+        switch(queryResult.action) {
+            case 'RecommendCourses-yes': 
+                if(queryResult.allRequiredParamsPresent) {
+                    self.saveRegistration(queryResult.parameters.fields);
+                }
+            break;
+
+        }
+
         return responses;
+    },
+
+    saveRegistration: async (fields) => {
+        const registration = new Registration({
+            name: fields.name.stringValue,
+            address: fields.address.stringValue,
+            phone: fields.phone.stringValue,
+            email: fields.email.stringValue,
+        });
+        try {
+            let res = await registration.save();
+            console.log(res);
+        } catch(err) {
+            console.log(err);
+        }
     }
 }
