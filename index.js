@@ -29,13 +29,13 @@ app.use("/", dialogFlowRoutes);
 app.use("/", fulfilmentRoutes);
 
 if(process.env.NODE_ENV === "production") {
-    app.use(express.static('client-chatbot/build'));
+    app.use(express.static('client/build'));
 
     // index.html for all page routes
     const path = require("path");
     app.get('*', (req, res) => {
-        console.log(path.resolve(__dirname, 'clientbot', 'build', 'index.html'))
-        res.sendFile(path.resolve(__dirname, 'clientbot', 'build', 'index.html'))
+        console.log(path.resolve(__dirname, 'client', 'build', 'index.html'))
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
     })
 }
 

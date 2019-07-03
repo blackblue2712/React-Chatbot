@@ -10,9 +10,9 @@
   "scripts": {
     "start": "node index.js",
     "backend": "nodemon index.js",
-    "frontend": "npm run start --prefix client-chatbot",
+    "frontend": "npm run start --prefix client",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\" ",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client-chatbot && npm run build --prefix client-chatbot"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
