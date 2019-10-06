@@ -7,7 +7,7 @@ const config = require("./config/key");
 
 console.log(config.mongoURI);
 
-mongoose.connect("mongodb+srv://nhuhao:9Hj6@hq2@cluster0-ypygk.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
+mongoose.connect(config.mongoURI, {useNewUrlParser: true});
 
 // Import routes
 const dialogFlowRoutes = require("./routes/dialogFlowRoutes");

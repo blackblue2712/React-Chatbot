@@ -73,6 +73,7 @@ class Chatbot extends Component {
             }
             this.setState({ messages: [...this.state.messages, says]});
             setTimeout( () => {
+                console.log(this)
                 this.setState( {isShow: false} )
             }, 2000)    
         }
